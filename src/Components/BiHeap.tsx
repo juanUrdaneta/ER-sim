@@ -11,7 +11,6 @@ function computeNumberOfRows(list: Array<PQ_Node_json>, exp: number = 1): number
     return exp - 1;
 }
 
-//refactor undefined to empty node.
 function deFlatList (list: Array<PQ_Node_json>): Array<Array<PQ_Node_json | undefined>> {
     const rowCount = computeNumberOfRows(list);
     let newList = list.map(el=>el);
@@ -31,7 +30,6 @@ function deFlatList (list: Array<PQ_Node_json>): Array<Array<PQ_Node_json | unde
 }
 
 export interface BiHeapProps {
-    // list: PriorityQueue;
     list: Array<PQ_Node_json>;
 }
  
