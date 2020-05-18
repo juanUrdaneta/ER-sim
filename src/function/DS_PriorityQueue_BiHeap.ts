@@ -216,7 +216,7 @@ export default class PriorityQueue {
         if(children[1] === undefined) return children[0];
         else return children[0].priority < children[1].priority ? children[0] : children[1];
     }
-
+    
     insert(val: string, priority: number): PriorityQueue {
         this.nodes.push(val, priority);
         if(this.nodes.tail === null) return this;
@@ -224,20 +224,18 @@ export default class PriorityQueue {
         let compareTo: PQ_Node | undefined = this.nodes.tail;
 
         const bubbleUp = (tbi: number) : void => {
-            this.nodes.print();
             const parentIndex: number = this.getParentIndex(tbi);
             const parentNode : PQ_Node | undefined = this.nodes.getByIndex(parentIndex);
 
             if(parentNode === undefined) return;
             if(!this.nodes.tail) return;
-            if(compareTo == undefined) return;
+            if(compareTo === undefined) return;
 
             if(compareTo.priority < parentNode.priority){
-                console.log(parentNode,compareTo)
                 this.nodes.swap(
                     this.nodes.getIndexByNode(compareTo),
                     parentIndex
-                );
+                );  
                 compareTo = this.nodes.getByIndex(parentIndex);
                 bubbleUp(parentIndex);
             } else return;
