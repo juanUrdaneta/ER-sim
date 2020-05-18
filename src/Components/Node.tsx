@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import { PQ_Node_json } from '../function/DS_PriorityQueue_BiHeap';
 
 export interface NodeProps {
@@ -9,28 +9,33 @@ export interface NodeProps {
  
 const Node: React.FC<NodeProps> = ({isSmall, data, index}) => {
 
-    const [show, setShow] = useState<boolean | null>(false);
-
     const [showData, setData] = useState(data);
+
+    const refX = useRef<HTMLDivElement>(null);
+
     useEffect(()=> {
-        setTimeout(()=>setData(data),300);
-        setTimeout(()=>setShow(true),300);
-        return ()=>{setShow(false)}
-    },[data])
+        if(data?.priority!==undefined){
+            if(refX.current?.classList.contains('BiHeap__Node--hidden')){
+                refX.current?.classList.remove('BiHeap__Node--hidden');
+                refX.current?.classList.add('BiHeap__Node--show')
+            }
+        }
+    },[data?.priority])
+
+    useLayoutEffect(()=>{
+        if(data?.priority!==undefined){
+            refX.current?.classList.add('BiHeap__Node--show');
+        }else {
+            refX.current?.classList.add('BiHeap__Node--hidden');
+        }
+    },[])
 
     return ( 
         <div 
-            className={`
-                BiHeap__Node 
-                ${show 
-                    ? "BiHeap__Node--show" 
-                    : index !== 0 ? "BiHeap__Node--hide" 
-                    : "BiHeap__Node--extract" }
-                ${isSmall ? "BiHeap__Node--small" : ""}
-                ${data===undefined ? "BiHeap__Node--hidden" : ""}
-                `}
+            ref={refX}
+            className={`BiHeap__Node`}
                 >
-            {showData!==undefined ? showData.priority : ''}
+            {data!==undefined ? data.priority : ''}
         </div>
     );
 }

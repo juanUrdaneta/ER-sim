@@ -17,7 +17,6 @@ const App: React.FC = () => {
   }
   const handleExtract = () => {
     priQueue.extractMax();
-    console.log(priQueue.toArray())
     setQueue(priQueue.toArray());
   }
 
