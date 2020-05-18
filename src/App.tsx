@@ -90,10 +90,11 @@ const App: React.FC = () => {
         <button onClick={()=>setToSend(listG)}>LIST G</button>
         <button onClick={()=>setToSend(listH)}>LIST H</button> */}
 
-        <button onClick={()=>handleInsert({val:'tugor',priority:1})}    >INSERT 1</button>
-        <button onClick={()=>handleInsert({val:'ditobello',priority:2})}>INSERT 2</button>
-        <button onClick={()=>handleInsert({val:'ditobello',priority:3})}>INSERT 3</button>
-        <button onClick={()=>handleInsert({val:'ditobello',priority:4})}>INSERT 4</button>
+        <button onClick={()=>handleInsert({val:'uno'   ,priority:1})}>INSERT 1</button>
+        <button onClick={()=>handleInsert({val:'dos'   ,priority:2})}>INSERT 2</button>
+        <button onClick={()=>handleInsert({val:'tres'  ,priority:3})}>INSERT 3</button>
+        <button onClick={()=>handleInsert({val:'cuatro',priority:4})}>INSERT 4</button>
+        <button onClick={()=>handleInsert({val:'cinco' ,priority:5})}>INSERT 5</button>
         <button onClick={()=>handleExtract()}>Extract</button>
         {/* <button onClick={()=>console.log(priQueue.toArray())}>LOG</button> */}
       </div>

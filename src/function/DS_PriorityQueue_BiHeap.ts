@@ -264,7 +264,7 @@ export default class PriorityQueue {
 
         while(true) {
             const higherPriorityChild: PQ_Node | undefined= this.getHigherPriorityChild(atIndex);
-            const innerRoot : PQ_Node | undefined = this.nodes.getByIndex(0);
+            const innerRoot : PQ_Node | undefined = this.nodes.getByIndex(atIndex);
             
             if(higherPriorityChild === undefined) break;
             if(innerRoot === undefined) break;
