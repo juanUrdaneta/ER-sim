@@ -29,7 +29,7 @@ import './App.scss';
 // priorityQueue.print();
 
 // type State = {
-//   queue: PriorityQueue;
+//   readonly queue: PriorityQueue;
 // }
 
 // type Insert = {
@@ -69,7 +69,6 @@ const App: React.FC = () => {
 
   const handleInsert = (node: PQ_Node_json) => {
     priQueue.insert(node.val,node.priority);
-    // priQueue.print();
     setQueue(priQueue.toArray());
   }
   const handleExtract = () => {

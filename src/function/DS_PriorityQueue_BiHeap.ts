@@ -67,12 +67,12 @@ class DLinkedList {
 
     shift (): PQ_Node | undefined { //removes first node
         if(!this.head) return undefined;
-        if(!this.head.next) return undefined;
         let oldHead = this.head;
         if(this.length === 1) {
             this.head = null;
             this.tail = null;
         } else {
+            if(!this.head.next) return undefined;
             let newHead: PQ_Node = this.head.next;
             this.head.next = null;
             this.head = newHead;
@@ -212,7 +212,7 @@ export default class PriorityQueue {
 
     private getHigherPriorityChild (index: number): PQ_Node | undefined{
         const children: Array<PQ_Node | undefined> = [this.nodes.getByIndex(2*index+1), this.nodes.getByIndex(2*index+2)];
-        if(children[0] === undefined) return;
+        if(children[0] === undefined) return undefined;
         if(children[1] === undefined) return children[0];
         else return children[0].priority < children[1].priority ? children[0] : children[1];
     }
@@ -245,28 +245,30 @@ export default class PriorityQueue {
         return this;
     }
 
-    extractMax (): PQ_Node | undefined | null{
+    extractMax (): PQ_Node | undefined | null | PriorityQueue{
+
         if(this.nodes.head === undefined) return undefined;
         if(this.nodes.tail === undefined) return undefined;
 
+        if(this.nodes.length === 1) {
+            this.nodes.shift();
+            return this;
+        }
+
         const root = this.nodes.head;
         
-        const t = this.nodes.pop();
-        if(t === undefined) return;
-        console.log(t)
         this.nodes.shift();
-        this.nodes.print();
-        this.nodes.unshift(t.value,t.priority);
-        this.nodes.print();
+        if(this.nodes.length > 2)this.nodes.unshiftNode(this.nodes.pop());
 
-        let atIndex = 0;
+        let atIndex = 0;    
 
         while(true) {
             const higherPriorityChild: PQ_Node | undefined= this.getHigherPriorityChild(atIndex);
             const innerRoot : PQ_Node | undefined = this.nodes.getByIndex(0);
-
+            
             if(higherPriorityChild === undefined) break;
             if(innerRoot === undefined) break;
+
             const hpcIndex = this.nodes.getIndexByNode(higherPriorityChild)
             if(innerRoot.priority > higherPriorityChild.priority){
                 this.nodes.swap(
@@ -279,6 +281,7 @@ export default class PriorityQueue {
         }
         return root;
     }
+
     toArray(): Array<PQ_Node_json>{
         let retArray: Array<PQ_Node_json> = [];
         for(let i = 0; i < this.nodes.length; i++){
