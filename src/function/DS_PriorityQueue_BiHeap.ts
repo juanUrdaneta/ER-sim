@@ -37,7 +37,6 @@ class DLinkedList {
         } else {
 
             if(this.tail===null) return;
-//nodeCABEZA <-> nodo 1 <-> nodo 2 <-> nodo3 <-> nodoColaNuevo
             let temp: PQ_Node | null = this.tail;
             this.tail = newNode;
             this.tail.prev = temp;
@@ -201,9 +200,11 @@ class DLinkedList {
 
 export default class PriorityQueue {
     nodes: DLinkedList; 
+    private bubbledNode: PQ_Node | null;
 
         constructor (){
             this.nodes = new DLinkedList();
+            this.bubbledNode = null;
         }
 
     private getParentIndex (index:number): number {
@@ -245,12 +246,49 @@ export default class PriorityQueue {
         return this;
     }
 
+    insertWB(val: string, priority: number): any {
+        
+        let reachedMax: boolean = false;
+        if(!this.bubbledNode){
+            this.nodes.push(val, priority);
+            this.bubbledNode = this.nodes.tail;
+            return {priQueue: this, stop: false};
+        }
+        if(this.nodes.tail === null) return this;
+        
+        let compareTo: PQ_Node | undefined = this.bubbledNode;
+
+        const bubbleUp = (tbi: number) : void => {
+            const parentIndex: number = this.getParentIndex(tbi);
+            const parentNode : PQ_Node | undefined = this.nodes.getByIndex(parentIndex);
+
+            if (!this.nodes.tail) return;
+            if (compareTo === undefined) return;
+            if (parentNode === undefined) return;
+
+            if (compareTo.priority < parentNode.priority){
+                this.nodes.swap(
+                    this.nodes.getIndexByNode(compareTo),
+                    parentIndex
+                );  
+                this.bubbledNode = parentNode;
+            } else {
+                console.log(compareTo.priority, parentNode.priority)
+                reachedMax = true;
+                this.bubbledNode = null;
+                console.log('reached MAX');
+            }
+        }
+        bubbleUp(this.nodes.getIndexByNode(compareTo));
+        return {priQueue: this, stop: reachedMax};
+    }
+
     extractMax (): PQ_Node | undefined | null | PriorityQueue{
 
-        if(this.nodes.head === undefined) return undefined;
-        if(this.nodes.tail === undefined) return undefined;
+        if (this.nodes.head === undefined) return undefined;
+        if (this.nodes.tail === undefined) return undefined;
 
-        if(this.nodes.length === 1) {
+        if (this.nodes.length === 1) {
             this.nodes.shift();
             return this;
         }
@@ -258,7 +296,7 @@ export default class PriorityQueue {
         const root = this.nodes.head;
         
         this.nodes.shift();
-        if(this.nodes.length > 2)this.nodes.unshiftNode(this.nodes.pop());
+        if (this.nodes.length > 2)this.nodes.unshiftNode(this.nodes.pop());
 
         let atIndex = 0;    
 
