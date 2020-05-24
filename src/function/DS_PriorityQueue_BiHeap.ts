@@ -200,7 +200,7 @@ class DLinkedList {
 
 export default class PriorityQueue {
     nodes: DLinkedList; 
-    private bubbledNode: PQ_Node | null;
+    private bubbledNode: PQ_Node | null | undefined;
 
         constructor (){
             this.nodes = new DLinkedList();
@@ -246,7 +246,7 @@ export default class PriorityQueue {
         return this;
     }
 
-    insertWB(val: string, priority: number): any {
+    insertWB(val: string, priority: number): any{
         
         let reachedMax: boolean = false;
         if(!this.bubbledNode){
@@ -318,6 +318,53 @@ export default class PriorityQueue {
             else break;
         }
         return root;
+    }
+
+    extractMaxWB (): any{
+        if (this.nodes.head === undefined) return undefined;
+        if (this.nodes.tail === undefined) return undefined;
+
+        if (this.nodes.length === 1) {
+            this.nodes.shift();
+            return this;
+        }
+
+        let reachedMax = false;
+
+        if (!this.bubbledNode){
+            this.nodes.shift();
+            if (this.nodes.length > 2)this.nodes.unshiftNode(this.nodes.pop());
+            this.bubbledNode = this.nodes.getByIndex(0);
+            return {priQueue: this, stop: reachedMax};
+        } else {
+            let atIndex = this.nodes.getIndexByNode(this.bubbledNode);    
+
+            const higherPriorityChild: PQ_Node | undefined= this.getHigherPriorityChild(atIndex);
+            const innerRoot : PQ_Node | undefined = this.nodes.getByIndex(atIndex);
+            
+            if(higherPriorityChild === undefined) {
+                console.log('reached lowest');
+                this.bubbledNode = null;
+                reachedMax = true;
+                return {priQueue: this, stop: reachedMax};
+            };
+            if(innerRoot === undefined) return;
+
+            const hpcIndex = this.nodes.getIndexByNode(higherPriorityChild)
+            console.log(innerRoot.priority,higherPriorityChild.priority)
+            if(innerRoot.priority > higherPriorityChild.priority){
+                this.nodes.swap(
+                    atIndex,
+                    hpcIndex
+                )
+                this.bubbledNode = this.nodes.getByIndex(hpcIndex)
+            } else {
+                console.log('reached lowest');
+                this.bubbledNode = null;
+                reachedMax = true;
+            }
+        }
+        return {priQueue: this, stop: reachedMax};
     }
 
     toArray(): Array<PQ_Node_json>{
