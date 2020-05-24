@@ -1,30 +1,37 @@
 import React, { useState } from 'react';
-import BiHeap from './Components/BiHeap'
-
-import PriorityQueue, { PQ_Node_json } from './function/DS_PriorityQueue_BiHeap'
+import BiHeap from './Components/BiHeap';
+import PriorityQueue, { PQ_Node_json } from './function/DS_PriorityQueue_BiHeap';
 
 import './App.scss';
 
+const INTERVAL_DURATION = 800;
+
 const priQueue = new PriorityQueue();
 
-const App: React.FC = () => {
-  
-  const [queue, setQueue] = useState<Array<PQ_Node_json>>([]);
 
-  const handleInsert = (node: PQ_Node_json) => {
-    priQueue.insert(node.val,node.priority);
+const App: React.FC = () => {
+
+  const [queue, setQueue] = useState<Array<PQ_Node_json>>(priQueue.toArray());
+
+  const handleInsert = (node: PQ_Node_json): Function | any => {
+    let {stop} = priQueue.insertWB(node.val,node.priority);
     setQueue(priQueue.toArray());
+    setTimeout(() => {
+      if(!stop) return handleInsert(node);
+    }, INTERVAL_DURATION);
   }
   const handleExtract = () => {
-    priQueue.extractMax();
+    let {stop} = priQueue.extractMaxWB();
     setQueue(priQueue.toArray());
+    setTimeout(() => {
+      if(!stop) return handleExtract();
+    }, INTERVAL_DURATION);
   }
 
   return (
     <div className="container">
       <BiHeap list={queue} />
-      <div className="lala">
-
+      <div className="lala" >
         <button onClick={()=>handleInsert({val:'uno'   ,priority:1})}>INSERT 1</button>
         <button onClick={()=>handleInsert({val:'dos'   ,priority:2})}>INSERT 2</button>
         <button onClick={()=>handleInsert({val:'tres'  ,priority:3})}>INSERT 3</button>

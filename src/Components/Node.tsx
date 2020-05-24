@@ -1,35 +1,42 @@
 import React, { useRef, useMemo, useState, useEffect } from 'react';
 import { PQ_Node_json } from '../function/DS_PriorityQueue_BiHeap';
-export interface NodeProps {
+
+const CSS_CLASSES = {
+    MAIN: 'BiHeap__Node',
+    ANIM_SHOW : 'BiHeap__Node--show',
+    ANIM_HIDE : 'BiHeap__Node--hide',
+    STAT_VISIBLE : 'BiHeap__Node--visible',
+    STAT_HIDDEN: 'BiHeap__Node--hidden',
+}
+
+interface NodeProps {
     data: PQ_Node_json | undefined;
-    isSmall: boolean;
     row: number;
 }
 
-const Node: React.FC<NodeProps> = ({data, isSmall, row}) => {
+const Node: React.FC<NodeProps> = ({data, row}) => {
 
     const node = useMemo(()=>data!==undefined ? data : {val:-1,priority:0},[data]);
     
-    const [currentAnim, setCurrentAnim] = useState<string>('BiHeap__Node--hide');
-    const [showStatus,  setshowStatus]  = useState<string>('BiHeap__Node--hidden');
+    const [currentAnim, setCurrentAnim] = useState<string>(CSS_CLASSES.ANIM_HIDE);
+    const [showStatus,  setshowStatus]  = useState<string>(CSS_CLASSES.STAT_HIDDEN);
 
-    const firstRun = useRef<boolean>(true);
+    const isFirstRun = useRef<boolean>(true);
 
     useEffect(()=> {
-        if (firstRun.current) {
+        if (isFirstRun.current) {
             if(node.priority){
-                console.log(node.priority)
-                setshowStatus('BiHeap__Node--visible');
+                setshowStatus(CSS_CLASSES.STAT_VISIBLE);
                 setTimeout(() => {
-                    setCurrentAnim('BiHeap__Node--show');
+                    setCurrentAnim(CSS_CLASSES.ANIM_SHOW);
                 }, 400)
-                firstRun.current = false;
+                isFirstRun.current = false;
             }
         }else{
-            setCurrentAnim('BiHeap__Node--hide');
+            setCurrentAnim(CSS_CLASSES.ANIM_HIDE);
             if(node.priority){
                 setTimeout(() => {
-                    setCurrentAnim('BiHeap__Node--show')
+                    setCurrentAnim(CSS_CLASSES.ANIM_SHOW)
                 }, 400)
             }
         }
@@ -37,8 +44,7 @@ const Node: React.FC<NodeProps> = ({data, isSmall, row}) => {
 
     return (
         <div 
-            // style={{...style}}
-            className={`BiHeap__Node ${currentAnim} ${showStatus}`}>
+            className={`${CSS_CLASSES.MAIN} ${currentAnim} ${showStatus}`}>
             {data ? data.priority : ''}
         </div>
     )

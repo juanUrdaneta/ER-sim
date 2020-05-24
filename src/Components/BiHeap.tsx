@@ -4,8 +4,6 @@ import { PQ_Node_json } from '../function/DS_PriorityQueue_BiHeap';
 
 import '../style/BiHeap.scss';
 
-
-
 function computeNumberOfRows(list: Array<PQ_Node_json>, exp: number = 1): number {
     const compareValue = Math.pow(2, exp - 1)
     if(list.length >= compareValue) return computeNumberOfRows(list, exp + 1);
@@ -15,6 +13,7 @@ function computeNumberOfRows(list: Array<PQ_Node_json>, exp: number = 1): number
 function deFlatList (list: Array<PQ_Node_json>): Array<Array<PQ_Node_json | undefined>> {
     const rowCount = computeNumberOfRows(list);
     let newList = list.map(el=>el);
+    
     let array : Array<Array<PQ_Node_json | undefined>> = [];
     
 
@@ -35,7 +34,7 @@ function deFlatList (list: Array<PQ_Node_json>): Array<Array<PQ_Node_json | unde
     return array;
 }
 
-export interface BiHeapProps {
+interface BiHeapProps {
     list: Array<PQ_Node_json>;
 }
  

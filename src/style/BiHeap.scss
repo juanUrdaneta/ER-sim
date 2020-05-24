@@ -1,3 +1,5 @@
+$animation-time: 200ms;
+
 
 @keyframes show {
 
@@ -13,8 +15,8 @@
 
 }
 .BiHeap{
-    height: auto;
     width: 100%;
+    height: auto;
 
     display: flex;
     flex-direction: column;
@@ -25,7 +27,7 @@
         padding: 1rem;
         height: 6vh;
     }
-
+    
     &__Node{
 
         width: 4rem;
@@ -44,7 +46,7 @@
         border: 2px solid #909090;
         border-radius: 50%;
 
-        transition: .2s transform;
+        transition: $animation-time transform;
         transition-timing-function: ease-in-out;
 
         user-select: none;
@@ -57,31 +59,22 @@
             transform: scale(1.4);
         }
 
-        &--small{
-            transform: scale(.8);
-            &:hover{
-                border-color: #303030;
-                transform: scale(.9);
-            }
+        &--show{
+            transition: transform $animation-time;
+            transform: scale(1);
         }
-
+        
         &--hide{
+            transition: transform $animation-time;
             transform: scale(0);
         }
-
-        &--show{
-            animation: show;
-            animation-duration: .3s;
+        
+        &--visible { 
+            visibility: visible;
         }
-
-        &--extract{
-            transition: .1s top;
-            top: -5rem;
-        }
-
-        &--hidden{
+        &--hidden {
             visibility: hidden;
-        }   
-
+        }
+        
     }
 }
