@@ -20,7 +20,7 @@ const App: React.FC = () => {
 
   const [queue, setQueue] = useState<Array<PQ_Node_json>>(priQueue.toArray());
 
-  const handleInsert = (node: PQ_Node_json): Function | any => {
+  const handleInsert = (node: PQ_Node_json) => {
     let {stop} = priQueue.insertWB(node.val,node.priority);
     setQueue(priQueue.toArray());
     setTimeout(() => {
