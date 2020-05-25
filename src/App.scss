@@ -1,29 +1,4 @@
-
-*{
-    margin:0;
-    padding: 0;
-    box-sizing: border-box;
-    font-size: 62.5%;
-}
-.container{
-    
-    width: 40vw;
-    height: 100vh;
-
-    margin: 0 auto;
-
-    & > div > button {
-        font-size: 1.6rem;
-    }
-
-    & > h1 {
-        font-size: 4rem;
-    }
-
-}
-
-
-.lala{
-    position: fixed;
-    top: 50vh;
-}
+@import './style/Colors.scss';
+@import './style/Container.scss';
+@import './style/BiHeap.scss';
+@import './style/ActionMenu.scss';
