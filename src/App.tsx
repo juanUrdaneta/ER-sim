@@ -19,35 +19,66 @@ const priQueue = new PriorityQueue();
 const App: React.FC = () => {
 
   const [queue, setQueue] = useState<Array<PQ_Node_json>>(priQueue.toArray());
+  const [enabled, setenabled] = useState(true)
 
   const handleInsert = (node: PQ_Node_json) => {
+    setenabled(false);
     let {stop} = priQueue.insertWB(node.val,node.priority);
     setQueue(priQueue.toArray());
     setTimeout(() => {
       if(!stop) return handleInsert(node);
     }, INTERVAL_DURATION);
+    if (stop) setenabled(true)
   }
+
   const handleExtract = () => {
+    setenabled(false)
     let {stop} = priQueue.extractMaxWB();
     setQueue(priQueue.toArray());
     setTimeout(() => {
       if(!stop) return handleExtract();
     }, INTERVAL_DURATION);
+    if (stop) setenabled(true)
   }
 
   return (
     <div className="container">
       <BiHeap list={queue} />
-      <div className="lala" >
-        <button onClick={()=>handleInsert(DEFAULT_NODES.NODE_1)}>INSERT 1</button>
-        <button onClick={()=>handleInsert(DEFAULT_NODES.NODE_2)}>INSERT 2</button>
-        <button onClick={()=>handleInsert(DEFAULT_NODES.NODE_3)}>INSERT 3</button>
-        <button onClick={()=>handleInsert(DEFAULT_NODES.NODE_4)}>INSERT 4</button>
-        <button onClick={()=>handleInsert(DEFAULT_NODES.NODE_5)}>INSERT 5</button>
-        <button onClick={()=>handleExtract()}>Extract</button>
+      <div className="action-menu" >
+        <div 
+          className={`action-menu__button ${!enabled ? 'action-menu__button--disabled' : ''}`} 
+          onClick={()=>handleInsert(DEFAULT_NODES.NODE_1)}>
+            INSERT 1
+        </div>
+        <div 
+          className={`action-menu__button ${!enabled ? 'action-menu__button--disabled' : ''}`} 
+          onClick={()=>handleInsert(DEFAULT_NODES.NODE_2)}>
+            INSERT 2
+        </div>
+        <div 
+          className={`action-menu__button ${!enabled ? 'action-menu__button--disabled' : ''}`} 
+          onClick={()=>handleInsert(DEFAULT_NODES.NODE_3)}>
+            INSERT 3
+        </div>
+        <div 
+          className={`action-menu__button ${!enabled ? 'action-menu__button--disabled' : ''}`} 
+          onClick={()=>handleInsert(DEFAULT_NODES.NODE_4)}>
+            INSERT 4
+        </div>
+        <div 
+          className={`action-menu__button ${!enabled ? 'action-menu__button--disabled' : ''}`} 
+          onClick={()=>handleInsert(DEFAULT_NODES.NODE_5)}>
+            INSERT 5
+        </div>
+        <div 
+          className={`action-menu__button ${!enabled ? 'action-menu__button--disabled' : ''}`} 
+          onClick={()=>handleExtract()}>Extract</
+          div>
+      
       </div>
     </div>
   );
+  
 }
 
 export default App;
