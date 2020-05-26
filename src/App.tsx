@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import BiHeap from './Components/BiHeap';
+import Modal from './Components/Modal';
 import PriorityQueue, { PQ_Node_json } from './function/DS_PriorityQueue_BiHeap';
 
 import './App.scss';
@@ -28,7 +29,7 @@ const App: React.FC = () => {
     setTimeout(() => {
       if(!stop) return handleInsert(node);
     }, INTERVAL_DURATION);
-    if (stop) setenabled(true)
+    if (stop) {setenabled(true)}
   }
 
   const handleExtract = () => {
@@ -38,11 +39,13 @@ const App: React.FC = () => {
     setTimeout(() => {
       if(!stop) return handleExtract();
     }, INTERVAL_DURATION);
-    if (stop) setenabled(true)
+    if (stop) {setenabled(true)}
   }
 
   return (
     <div className="container">
+      
+      <Modal toggleModal={true}/>
       <BiHeap list={queue} />
       <div className="action-menu" >
         <div 
@@ -72,12 +75,12 @@ const App: React.FC = () => {
         </div>
         <div 
           className={`action-menu__button ${!enabled ? 'action-menu__button--disabled' : ''}`} 
-          onClick={()=>handleExtract()}>Extract</
-          div>
+          onClick={()=>handleExtract()}>Extract
+        </div>
       
       </div>
     </div>
-  );
+  )
   
 }
 
