@@ -21,6 +21,9 @@ $animation-time: 200ms;
     display: flex;
     flex-direction: column;
 
+    position: relative;
+    top:10%;
+
     &__Row{
         display: flex;
         justify-content: space-around;
