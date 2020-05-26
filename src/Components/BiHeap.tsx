@@ -2,7 +2,6 @@ import React, {} from 'react';
 import Row from './Row';
 import { PQ_Node_json } from '../function/DS_PriorityQueue_BiHeap';
 
-import '../style/BiHeap.scss';
 
 function computeNumberOfRows(list: Array<PQ_Node_json>, exp: number = 1): number {
     const compareValue = Math.pow(2, exp - 1)
