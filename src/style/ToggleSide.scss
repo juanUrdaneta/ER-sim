@@ -1,0 +1,41 @@
+.toggle-side {
+    z-index: 0;
+    position: fixed;
+    top: 2vh;
+    right: -1rem;
+    width: 6rem;
+    padding: .5rem;
+    transition: 300ms;
+
+    & > span {
+        user-select: none;
+        font-size: 4rem;
+        color: $color-secondary;
+    }
+    
+    border-radius: 20% 0 0 20%; 
+    background-color: $color-accent;
+
+    
+    &:hover {
+        transform: translateX(-1rem) scale(1.1);
+    }
+    &:active {
+        transform: scale(1.15) translateX(-1rem);
+    }
+
+    &--toggle {
+        right: 20vw;
+        width: 5rem;
+        
+        &:hover {
+            width: 6rem;
+            transform: unset;
+        }
+    }
+
+    &--disabled {
+        pointer-events: none;
+        opacity: .7;
+    }
+}
