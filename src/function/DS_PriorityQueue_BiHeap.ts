@@ -215,7 +215,7 @@ export default class PriorityQueue {
         const children: Array<PQ_Node | undefined> = [this.nodes.getByIndex(2*index+1), this.nodes.getByIndex(2*index+2)];
         if(children[0] === undefined) return undefined;
         if(children[1] === undefined) return children[0];
-        else return children[0].priority < children[1].priority ? children[0] : children[1];
+        else return children[0].priority <= children[1].priority ? children[0] : children[1];
     }
     
     insert(val: string, priority: number): PriorityQueue {
