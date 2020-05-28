@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import {MODAL_TITLES, MODAL_TEXTS} from '../data/Modal_Text';
 
-const a = (()=>  <p>HELLOOO</p>);
+const CSS_CLASSES = {
+    HIDE_MODAL: 'side-bar--hide-modal',
+    SHOW_SIDEBAR: 'side-bar--show',
+    HIDE_SIDEBAR: 'side-bar--hide',
+}
 
 interface ModalProps {
     isFirstRun?: boolean;
@@ -23,12 +27,12 @@ const Modal: React.FC<ModalProps> = ({
 
     const nextCard = () => {
         if(cardPage === 2 && isFirstRun) {
-            setCurrentAnimation('side-bar--hide-modal');
+            setCurrentAnimation(CSS_CLASSES.HIDE_MODAL);
             setCardPage(7);
             setIsModal(false);
             setTimeout(()=>{
                 setIsSmallModalVisible(true);
-                setCurrentAnimation('side-bar--show')
+                setCurrentAnimation(CSS_CLASSES.SHOW_SIDEBAR)
                 setCardPage(3);
                 setTutorialIsAt(3)
             },600);
@@ -55,7 +59,7 @@ const Modal: React.FC<ModalProps> = ({
         if (isModal) {
             if (isFirstRun){setTutorialIsAt(0)}
             setIsFirstRun(false);
-            setCurrentAnimation('side-bar--hide-modal');
+            setCurrentAnimation(CSS_CLASSES.HIDE_MODAL);
             setTimeout(() => {
                 setIsModal(false);
                 setCardPage(1);
@@ -65,7 +69,7 @@ const Modal: React.FC<ModalProps> = ({
                 setTutorialIsAt(0)
                 setIsFirstRun(false);
                 setIsSmallModalVisible(false);
-                setCurrentAnimation('side-bar--hide');
+                setCurrentAnimation(CSS_CLASSES.HIDE_MODAL);
                 setTimeout(() => {
                     setCardPage(1)
                 }, 300);
@@ -82,7 +86,7 @@ const Modal: React.FC<ModalProps> = ({
 
     const toggleCard = () => {
         setIsSmallModalVisible(!isSmallModalVisible);
-        setCurrentAnimation(isSmallModalVisible ? 'side-bar--hide' : 'side-bar--show')
+        setCurrentAnimation(isSmallModalVisible ? CSS_CLASSES.HIDE_SIDEBAR : CSS_CLASSES.SHOW_SIDEBAR)
     }
 
     useEffect(() => {
