@@ -47,7 +47,7 @@ const App: React.FC = () => {
   return (
     <div className="container">
       
-      <Modal isFirstRun={isFirstRun} setIFR={setisFirstRun} setTIA={settutorialIsAt}/>
+      <Modal isFirstRun={isFirstRun} setIsFirstRun={setisFirstRun} setTutorialIsAt={settutorialIsAt}/>
       <BiHeap list={queue} />
       <div className="action-menu" >
         <div 
