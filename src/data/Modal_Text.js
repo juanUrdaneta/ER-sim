@@ -9,7 +9,7 @@ export const MODAL_TITLES = [
 ];
 
 export const MODAL_TEXTS = [
-    `ER Sim is an visual tool created with the purpose of showing how a Priority Queue (in computer science) does it work taking an ER room as example and a Binary Heap as it’s backbone.`
+    `ER Sim is an visual tool created with the purpose of showing how a Priority Queue (in computer science) does its work taking an ER room as example and a Binary Heap as it’s backbone.`
     ,`A Priority Queue is an abstract data structure in which each element has a priority assign to it and it’s served in a previously designated order. In this particular example lower numbers indicate a higher priority so they will be served first. Each time a new item is added to the queue the queue places the item in the correct position for it to be served timely according it’s priority.    `
     ,`A Heap it’s a binary tree structure in which each parent node is always greater than its children node or vice versa. These are often compact or complete trees, this essentially means that the size of their branches are similar among sibling nodes. Binary heaps are filled from left to right and among siblings there is no guarantee that nodes will be lesser, greater or equal.`
     ,`In this example picture an ER room in which patients come in expecting to be treated A.S.A.P but each case is assigned a different priority regarding its particular urgency. In an ER room this would be done with an Emergency Severity Index although it’s important to note that the priority queue will be indifferent to the priority assignment system because the priority was already assigned to the item before it was added to the queue.`
