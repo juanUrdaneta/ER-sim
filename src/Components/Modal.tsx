@@ -2,14 +2,19 @@ import React, { useState, useEffect } from 'react';
 import {MODAL_TITLES, MODAL_TEXTS} from '../data/Modal_Text';
 
 interface ModalProps {
-    toggleModal: boolean;
+    isFirstRun?: boolean;
+    setIFR: Function;
+    setTIA: Function;
 }
 
-const Modal: React.FC<ModalProps> = ({toggleModal}) => {
-    
+const Modal: React.FC<ModalProps> = ({
+    isFirstRun,
+    setIFR,
+    setTIA,
+    }) => {
+
     const [cardPage, setCardPage] = useState<number>(0);
     const [CurrentAnimation, setCurrentAnimation] = useState<string>('');
-    const [isFirstRun, setIsFirstRun] = useState<boolean>(true);
     const [isModal, setIsModal] = useState<boolean>(true);
     const [isSmallModalVisible, setIsSmallModalVisible] = useState<boolean>(false);
     const [isShowing, setIsShowing] = useState<boolean>(true);
@@ -23,14 +28,22 @@ const Modal: React.FC<ModalProps> = ({toggleModal}) => {
                 setIsSmallModalVisible(true);
                 setCurrentAnimation('side-bar--show')
                 setCardPage(3);
+                setTIA(3)
             },600);
         } else if (cardPage <= 4){
+            if (isFirstRun){
+                if (cardPage === 3) {setTIA(4)}
+                if (cardPage === 4) {setTIA(5)}
+            }
             setIsShowing(false);
             setTimeout(() => {
                 setCardPage(cardPage=>cardPage+1);
             }, 200)
         } else {
-            setIsFirstRun(false);
+            if (isFirstRun){setTIA(0)}
+            setIFR(false);
+            setIsSmallModalVisible(false);
+            setCurrentAnimation('side-bar--hide')
             setIsShowing(false);
             setTimeout(() => {
                 setCardPage(1);
@@ -40,15 +53,18 @@ const Modal: React.FC<ModalProps> = ({toggleModal}) => {
 
     const skipCards = () => {
         if (isModal) {
-            setIsFirstRun(false);
+            if (isFirstRun){setTIA(0)}
+            setIFR(false);
             setCurrentAnimation('side-bar--hide-modal');
             setTimeout(() => {
                 setIsModal(false);
                 setCardPage(1);
             }, 300);
         } else {
-            setIsFirstRun(false);
+            if (isFirstRun){setTIA(0)}
+            setIFR(false);
             setIsSmallModalVisible(false);
+            setCurrentAnimation('side-bar--hide');
             setTimeout(() => {
                 setCardPage(1)
             }, 300);
@@ -68,7 +84,6 @@ const Modal: React.FC<ModalProps> = ({toggleModal}) => {
         <div className={`
                 side-bar 
                 ${CurrentAnimation} 
-                ${isSmallModalVisible ? '' : 'side-bar--hide'} 
                 ${isModal ? 'side-bar--is-modal': ''}`}>
             <div className={
                     `side-bar__content 
