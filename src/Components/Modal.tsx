@@ -36,7 +36,7 @@ const Modal: React.FC<ModalProps> = ({
                 setCardPage(3);
                 setTutorialIsAt(3)
             },600);
-        } else if (cardPage <= 4){
+        } else if (cardPage <= 5){
             if (isFirstRun){
                 if (cardPage === 3) {setTutorialIsAt(4)}
                 if (cardPage === 4) {setTutorialIsAt(5)}
@@ -74,11 +74,14 @@ const Modal: React.FC<ModalProps> = ({
                     setCardPage(1)
                 }, 300);
             } else {
-                setTutorialIsAt(0)
                 setIsFirstRun(false);
                 setIsShowing(false);
                 setTimeout(() => {
-                    setCardPage(6)
+                    if (cardPage === 6) {
+                        setCardPage(1);
+                    } else {
+                        setCardPage(6);
+                    }
                 }, 300);
             }
         }
@@ -107,13 +110,13 @@ const Modal: React.FC<ModalProps> = ({
                     {cardPage === 6 ? 
                         <div> 
                             <a target="_blank" rel="noopener noreferrer" href='https://github.com/juanUrdaneta?tab=repositories'>GitHub</a> 
-                            <a target="_blank" rel="noopener noreferrer" href='https://github.com/juanUrdaneta?tab=repositories'>LinkedIn</a> 
+                            <a target="_blank" rel="noopener noreferrer" href='https://www.linkedin.com/in/juanurdnt/'>LinkedIn</a> 
                         </div> : ''}
                 </p>
             </div>
             <div className="side-bar__next">
                 <p onClick={()=>skipCards()}>
-                    {isFirstRun ? 'Skip' : 'About'}
+                    {isFirstRun ? 'Skip' : '...?'}
                 </p>
                 <span
                     onClick={()=>nextCard()} 
