@@ -7,6 +7,22 @@ const CSS_CLASSES = {
     ANIM_HIDE : 'BiHeap__Node--hide',
     STAT_VISIBLE : 'BiHeap__Node--visible',
     STAT_HIDDEN: 'BiHeap__Node--hidden',
+    PRIO_ONE: 'BiHeap__Node--border-one',
+    PRIO_TWO: 'BiHeap__Node--border-two',
+    PRIO_THREE: 'BiHeap__Node--border-three',
+    PRIO_FOUR: 'BiHeap__Node--border-four',
+    PRIO_FIVE: 'BiHeap__Node--border-five',
+}
+
+function computePrio (pri: number | undefined) {
+    switch(pri){
+        case 1: return CSS_CLASSES.PRIO_ONE;
+        case 2: return CSS_CLASSES.PRIO_TWO;
+        case 3: return CSS_CLASSES.PRIO_THREE;
+        case 4: return CSS_CLASSES.PRIO_FOUR;
+        case 5: return CSS_CLASSES.PRIO_FIVE;
+        default: return '';
+    }
 }
 
 interface NodeProps {
@@ -16,7 +32,7 @@ interface NodeProps {
 
 const Node: React.FC<NodeProps> = ({data, row}) => {
 
-    const node = useMemo(()=>data!==undefined ? data : {val:-1,priority:0},[data]);
+    const node = useMemo(()=> data!==undefined ? data : {val:-1,priority:0},[data]);
     
     const [currentAnim, setCurrentAnim] = useState<string>(CSS_CLASSES.ANIM_HIDE);
     const [showStatus,  setshowStatus]  = useState<string>(CSS_CLASSES.STAT_HIDDEN);
@@ -44,7 +60,7 @@ const Node: React.FC<NodeProps> = ({data, row}) => {
 
     return (
         <div 
-            className={`${CSS_CLASSES.MAIN} ${currentAnim} ${showStatus}`}>
+            className={`${CSS_CLASSES.MAIN} ${currentAnim} ${showStatus} ${computePrio(data?.priority)}`}>
             {data ? data.priority : ''}
         </div>
     )
