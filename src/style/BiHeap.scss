@@ -28,13 +28,13 @@ $animation-time: 200ms;
         display: flex;
         justify-content: space-around;
         padding: 1rem;
-        height: 6vh;
+        height: 10vh;
     }
     
     &__Node{
-
-        width: 4rem;
-        height: 4rem;
+        
+        width: 6rem;
+        height: 6rem;
 
         display: flex;
         justify-content: center;
@@ -43,20 +43,20 @@ $animation-time: 200ms;
         position: relative;
         top:0;
 
-        font-size: 2rem;
+        font-family: 'Karla', 'sans-serif';
+        font-size: 2.5rem;
         text-align: center;
         
-        border: 2px solid #909090;
-        border-radius: 50%;
+        border: 3px solid #909090;
+        border-radius: 3rem;    
 
-        transition: $animation-time transform;
+        transition: $animation-time all;
         transition-timing-function: ease-in-out;
 
         user-select: none;
 
         &:hover{
-            border-color: #303030;
-            transform: scale(1.2);
+            transform: scale(1.2);  
         }
         &:active{
             transform: scale(1.4);
@@ -78,6 +78,21 @@ $animation-time: 200ms;
         &--hidden {
             visibility: hidden;
         }
-        
+
+        &--border-one {
+            border-color: #AF2323;
+        }
+        &--border-two{
+            border-color: #EA7951;
+        }
+        &--border-three{
+            border-color: #EAB652;
+        }
+        &--border-four{
+            border-color: #A9D054;
+        }
+        &--border-five{
+            border-color: #559833;
+        }
     }
 }
