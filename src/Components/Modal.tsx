@@ -46,7 +46,11 @@ const Modal: React.FC<ModalProps> = ({
                 setCardPage(cardPage=>cardPage+1);
             }, 200)
         } else {
-            if (isFirstRun){setTutorialIsAt(0)}
+            if (isFirstRun){
+                setTutorialIsAt(0);
+                setIsSmallModalVisible(!isSmallModalVisible);
+                setCurrentAnimation(CSS_CLASSES.HIDE_SIDEBAR);
+            }
             setIsFirstRun(false);
             setIsShowing(false);
             setTimeout(() => {
